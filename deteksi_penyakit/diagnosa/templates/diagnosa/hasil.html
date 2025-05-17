@@ -1,0 +1,19 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hasil Prediksi</title>
+    <link rel="stylesheet" href="{% static 'diagnosa/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Hasil Prediksi Diabetes</h1>
+        <p><strong>Persentase Kemungkinan Mengidap Diabetes:</strong> {{ persen }}%</p>
+        <p><strong>Risiko Diabetes Melitus:</strong> {{ risiko }}%</p>
+        <h3>Rekomendasi:</h3>
+        <p>{{ saran }}</p>
+
+        <a href="{% url 'form_prediksi' %}">🔁 Kembali ke Form</a>
+    </div>
+</body>
+</html>

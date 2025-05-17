@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form Deteksi Diabetes</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'diagnosa/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Form Deteksi Diabetes</h1>
+        <form method="post" action="{% url 'hasil_prediksi' %}">
+            {% csrf_token %}
+            <label>Jenis Kelamin (L/P):</label>
+            <input type="text" name="jenis_kelamin" required>
+
+            <label>Jumlah Kehamilan (jika wanita):</label>
+            <input type="number" step="1" name="kehamilan">
+
+            <label>Glukosa:</label>
+            <input type="number" step="any" name="glukosa" required>
+
+            <label>Tekanan Darah:</label>
+            <input type="number" step="any" name="tekanan" required>
+
+            <label>Ketebalan Kulit:</label>
+            <input type="number" step="any" name="kulit" required>
+
+            <label>Insulin:</label>
+            <input type="number" step="any" name="insulin" required>
+
+            <label>BMI:</label>
+            <input type="number" step="any" name="bmi" required>
+
+            <label>Riwayat Diabetes Keluarga (0-1):</label>
+            <input type="number" step="0.01" name="riwayat" required>
+
+            <label>Usia:</label>
+            <input type="number" step="1" name="usia" required>
+
+            <button type="submit">Prediksi</button>
+        </form>
+    </div>
+</body>
+</html>
