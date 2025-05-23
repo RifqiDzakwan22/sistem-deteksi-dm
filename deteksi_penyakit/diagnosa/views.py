@@ -1,10 +1,11 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 import numpy as np
 import pandas as pd
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import train_test_split
 
-# Load dan latih model 1x saja saat server dijalankan
+# ====== TRAINING SEKALI DI AWAL ======
 url = "https://raw.githubusercontent.com/jbrownlee/Datasets/master/pima-indians-diabetes.data.csv"
 columns = ['Kehamilan', 'Glukosa', 'TekananDarah', 'KetebalanKulit',
            'Insulin', 'BMI', 'RiwayatDiabetesKeluarga', 'Usia', 'Hasil']
@@ -17,11 +18,13 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 model = DecisionTreeClassifier(criterion='entropy', max_depth=4, random_state=42)
 model.fit(X_train, y_train)
 
-# View untuk menampilkan form
+# ====== VIEW FORM ======
+@login_required(login_url='login')
 def form_prediksi(request):
     return render(request, "diagnosa/form.html")
 
-# View untuk memproses input dan tampilkan hasil
+# ====== VIEW HASIL ======
+@login_required(login_url='login')
 def hasil_prediksi(request):
     if request.method == "POST":
         jenis_kelamin = request.POST.get("jenis_kelamin")
@@ -36,9 +39,19 @@ def hasil_prediksi(request):
 
         input_data = np.array([[kehamilan, glukosa, tekanan, kulit, insulin, bmi, riwayat, usia]])
         prediksi_proba = model.predict_proba(input_data)[0]
+        prediksi = model.predict(input_data)
 
-        persen = round(prediksi_proba[1] * 100, 2)  # peluang diabetes
-        risiko = round(persen * 0.7, 2)  # contoh asumsi risiko DM tipe 2
+        persen = round(prediksi_proba[1] * 100, 2)
+        risiko = round(persen * 0.7, 2)
+
+        if persen < 40:
+            tipe = "Normal atau Pra-Diabetes"
+        elif usia <= 25 and insulin < 50 and bmi < 22:
+            tipe = "Kemungkinan Diabetes Tipe 1"
+        elif usia >= 30 and bmi > 25:
+            tipe = "Kemungkinan Diabetes Tipe 2"
+        else:
+            tipe = "Perlu pemeriksaan lebih lanjut untuk memastikan tipe"
 
         if persen >= 70:
             saran = "⚠️ Segera konsultasikan ke dokter spesialis penyakit dalam dan lakukan tes lanjutan seperti HbA1c dan gula darah puasa."
@@ -51,6 +64,8 @@ def hasil_prediksi(request):
             "persen": persen,
             "risiko": risiko,
             "saran": saran,
+            "tipe": tipe,
+            "prediksi": prediksi,
         }
         return render(request, "diagnosa/hasil.html", context)
     else:
