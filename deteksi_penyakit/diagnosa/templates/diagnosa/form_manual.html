@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Form Deteksi Manual</title>
+  <link rel="stylesheet" href="{% static 'diagnosa/form_manual.css' %}">
+</head>
+<body>
+  <div class="container">
+    <h2>Form Input Data Pasien</h2>
+    <form method="POST" action="{% url 'hasil_prediksi' %}">
+      {% csrf_token %}
+      <div class="form-group">
+        <label>Jenis Kelamin (L/P):</label>
+        <input type="text" name="jenis_kelamin" required>
+      </div>
+      <div class="form-group">
+        <label>Jumlah Kehamilan:</label>
+        <input type="number" name="kehamilan" step="1" value="0">
+      </div>
+      <div class="form-group">
+        <label>Glukosa:</label>
+        <input type="number" name="glukosa" step="0.1" required>
+      </div>
+      <div class="form-group">
+        <label>Tekanan Darah:</label>
+        <input type="number" name="tekanan" step="0.1" required>
+      </div>
+      <div class="form-group">
+        <label>Ketebalan Kulit:</label>
+        <input type="number" name="kulit" step="0.1" required>
+      </div>
+      <div class="form-group">
+        <label>Insulin:</label>
+        <input type="number" name="insulin" step="0.1" required>
+      </div>
+      <div class="form-group">
+        <label>BMI:</label>
+        <input type="number" name="bmi" step="0.1" required>
+      </div>
+      <div class="form-group">
+        <label>Riwayat Diabetes Keluarga (0-1):</label>
+        <input type="number" name="riwayat" step="0.01" min="0" max="1" required>
+      </div>
+      <div class="form-group">
+        <label>Usia:</label>
+        <input type="number" name="usia" step="1" required>
+      </div>
+      <button type="submit">Prediksi</button>
+    </form>
+    <a href="{% url 'home' %}" class="btn-kembali">← Kembali ke Form Manual</a>
+  </div>
+</body>
+</html>

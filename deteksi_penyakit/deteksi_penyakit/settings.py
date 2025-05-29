@@ -16,7 +16,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'diagnosa',  # aplikasi utama kamu
+    'diagnosa',  # aplikasi utama kita
 ]
 
 # ======== MIDDLEWARE ========
@@ -82,3 +82,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # ======== AUTENTIKASI LOGIN REDIRECT & URL LOGIN ========
 LOGIN_REDIRECT_URL = '/'   # setelah login berhasil, redirect ke halaman utama
 LOGIN_URL = '/login/'      # jika belum login, redirect ke halaman ini
+LOGOUT_REDIRECT_URL = 'login'

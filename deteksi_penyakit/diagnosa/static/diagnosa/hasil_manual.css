@@ -1,0 +1,45 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f1f5f9;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 600px;
+  margin: 60px auto;
+  background: white;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+h2 {
+  color: #0f172a;
+  margin-bottom: 20px;
+}
+
+.result p {
+  font-size: 16px;
+  margin: 12px 0;
+  color: #334155;
+}
+
+.result p strong {
+  color: #1e293b;
+}
+
+.btn-kembali {
+  display: inline-block;
+  margin-top: 30px;
+  padding: 10px 20px;
+  background-color: #0ea5e9;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+}
+
+.btn-kembali:hover {
+  background-color: #0284c7;
+}

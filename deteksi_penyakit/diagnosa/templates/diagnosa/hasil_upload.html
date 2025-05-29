@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Hasil Evaluasi CSV</title>
+  <link rel="stylesheet" href="{% static 'diagnosa/hasil_upload.css' %}">
+</head>
+<body>
+  <div class="card">
+    <h2>Hasil Evaluasi Model</h2>
+    <p><strong>Jumlah Data:</strong> {{ support }} baris</p>
+    <p><strong>Akurasi:</strong> {{ accuracy }}%</p>
+    <p><strong>Precision:</strong> {{ macro_precision }}</p>
+    <p><strong>Recall:</strong> {{ macro_recall }}</p>
+    <p><strong>F1-score:</strong> {{ macro_f1 }}</p>
+
+    <a href="{% url 'form_upload' %}" class="btn-home">⬅ Kembali ke Upload</a>
+  </div>
+</body>
+</html>

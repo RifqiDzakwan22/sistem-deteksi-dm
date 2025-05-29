@@ -1,0 +1,73 @@
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Menu Deteksi Diabetes</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f3f4f6;
+      margin: 0;
+      padding: 0;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      background-color: #10b981;
+      color: white;
+    }
+    .logout-button {
+      background-color: #ef4444;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .logout-button:hover {
+      background-color: #dc2626;
+    }
+    .container {
+      max-width: 600px;
+      margin: 80px auto;
+      text-align: center;
+    }
+    h1 {
+      color: #111827;
+      margin-bottom: 40px;
+    }
+    .menu-button {
+      margin: 20px;
+      padding: 15px 30px;
+      font-size: 16px;
+      background-color: #10b981;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .menu-button:hover {
+      background-color: #059669;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h2>Deteksi Diabetes</h2>
+    <a href="{% url 'logout' %}" class="logout-button">Logout</a>
+  </div>
+  <div class="container">
+    <h1>Menu Deteksi Diabetes</h1>
+    <a href="{% url 'form_manual' %}" class="menu-button">➕ Input Manual</a>
+    <a href="{% url 'form_upload' %}" class="menu-button">📂 Upload CSV</a>
+  </div>
+</body>
+</html>
+{% endblock %}

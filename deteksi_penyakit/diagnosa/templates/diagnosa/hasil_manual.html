@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Hasil Prediksi Manual</title>
+  <link rel="stylesheet" href="{% static 'diagnosa/hasil_manual.css' %}">
+</head>
+<body>
+  <div class="container">
+    <h2>Hasil Deteksi Manual</h2>
+    <div class="result">
+      <p><strong>Persentase Risiko:</strong> {{ persen }}%</p>
+      <p><strong>Tingkat Risiko:</strong> {{ risiko }}%</p>
+      <p><strong>Tipe Diabetes:</strong> {{ tipe }}</p>
+      <p><strong>Saran:</strong> {{ saran }}</p>
+    </div>
+    <a href="{% url 'form_manual' %}" class="btn-kembali">← Kembali ke Form</a>
+  </div>
+</body>
+</html>

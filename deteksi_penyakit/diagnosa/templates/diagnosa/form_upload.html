@@ -1,0 +1,23 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Upload CSV</title>
+  <link rel="stylesheet" href="{% static 'diagnosa/form_upload.css' %}">
+</head>
+<body>
+  <div class="upload-container">
+  <h2>📁 Upload File CSV</h2>
+  <p class="subtitle">Minimal 100 baris data</p>
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="file" name="csv_file" accept=".csv" required class="file-input"><br><br>
+    <button type="submit" class="upload-btn">📊 Prediksi CSV</button>
+    {% if error %}
+    <p class="error">{{ error }}</p>
+    {% endif %}
+  </form>
+  <a href="{% url 'home' %}" class="back-btn">⬅ Kembali ke Menu</a>
+</body>
+</html>

@@ -1,0 +1,53 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f0f4f8;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.card {
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+  max-width: 480px;
+  width: 100%;
+  text-align: center;
+}
+
+h2 {
+  color: #2c3e50;
+  margin-bottom: 30px;
+  font-size: 26px;
+}
+
+p {
+  font-size: 18px;
+  color: #34495e;
+  margin: 12px 0;
+}
+
+p strong {
+  color: #16a085;
+}
+
+/* Tombol kembali */
+.btn-home {
+  display: inline-block;
+  margin-top: 30px;
+  padding: 10px 20px;
+  background-color: #1abc9c;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.btn-home:hover {
+  background-color: #149174;
+}
