@@ -6,6 +6,8 @@ import pandas as pd
 from sklearn.metrics import classification_report, accuracy_score
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
+from .forms import CustomUserCreationForm
+from django.contrib.auth import authenticate, login
 
 # Latih model sekali saat server dijalankan
 url = "https://raw.githubusercontent.com/jbrownlee/Datasets/master/pima-indians-diabetes.data.csv"
@@ -30,6 +32,30 @@ def logout_user(request):
     logout(request)
     return redirect('login')
 
+# ===== REGISTER & LOGIN USER =====
+def register_view(request):
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('login')  
+    else:
+        form = CustomUserCreationForm()
+    return render(request, 'diagnosa/register.html', {'form': form})
+
+def user_login_view(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        if user:
+            login(request, user)
+            return redirect('form_manual')
+        else:
+            return render(request, 'user_login.html', {'error': 'Username atau password salah'})
+    return render(request, 'diagnosa/user_login.html')
+
 # ===== INPUT MANUAL =====
 @login_required(login_url='login')
 def form_manual(request):
@@ -44,7 +70,10 @@ def hasil_prediksi(request):
         tekanan = float(request.POST.get('tekanan'))
         kulit = float(request.POST.get('kulit'))
         insulin = float(request.POST.get('insulin'))
-        bmi = float(request.POST.get('bmi'))
+        berat = float(request.POST.get('berat'))
+        tinggi_cm = float(request.POST.get('tinggi'))
+        tinggi_m = tinggi_cm / 100  # konversi ke meter
+        bmi = round(berat / (tinggi_m ** 2), 2)  # rumus BMI
         riwayat = float(request.POST.get('riwayat'))
         usia = float(request.POST.get('usia'))
 

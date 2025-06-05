@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Login Pengguna</title>
+  <title>Registrasi Pengguna</title>
   <style>
     body {
       background-color: #f6f7f9;
@@ -45,17 +45,14 @@
 </head>
 <body>
   <div class="container">
-    <h2>🔐 Login Pengguna</h2>
-    {% if form.errors %}
-      <p style="color: red;">Username atau password salah</p>
-    {% endif %}
+    <h2>🔐 Registrasi Pengguna</h2>
     <form method="post">
       {% csrf_token %}
       {{ form.as_p }}
-      <button type="submit" class="btn">Login</button>
+      <button type="submit" class="btn">Daftar</button>
     </form>
     <div class="link">
-      <a href="{% url 'register' %}">Belum punya akun? Daftar</a>
+      <a href="{% url 'login' %}">Sudah punya akun? Login</a>
     </div>
   </div>
 </body>

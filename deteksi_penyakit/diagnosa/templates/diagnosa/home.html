@@ -20,6 +20,12 @@
       background-color: #10b981;
       color: white;
     }
+    .username {
+      font-weight: bold;
+      font-size: 16px;
+      color: white;
+      margin-right: 20px;
+    }
     .logout-button {
       background-color: #ef4444;
       color: white;
@@ -61,13 +67,24 @@
 <body>
   <div class="header">
     <h2>Deteksi Diabetes</h2>
+
+    <!-- Tambahkan username di sini -->
+  <div class="username">
+    👤 {{ request.user.username }}
+  </div>
+
     <a href="{% url 'logout' %}" class="logout-button">Logout</a>
   </div>
   <div class="container">
     <h1>Menu Deteksi Diabetes</h1>
+    <!-- Semua user bisa lihat ini -->
     <a href="{% url 'form_manual' %}" class="menu-button">➕ Input Manual</a>
+
+    <!-- Hanya admin yang bisa lihat ini -->
+     {% if user.is_superuser %}
     <a href="{% url 'form_upload' %}" class="menu-button">📂 Upload CSV</a>
+    {% endif %}
   </div>
+{% endblock %}
 </body>
 </html>
-{% endblock %}

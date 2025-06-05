@@ -10,4 +10,5 @@ urlpatterns = [
     path('upload/', views.form_upload, name='form_upload'),
     path('login/', auth_views.LoginView.as_view(template_name='diagnosa/login.html'), name='login'),
     path('logout/', views.logout_user, name='logout'),
+    path('register/', views.register_view, name='register'),
 ]
