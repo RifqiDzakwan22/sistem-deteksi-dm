@@ -83,7 +83,7 @@
     <!-- Hanya admin yang bisa lihat ini -->
      {% if user.is_superuser %}
     <a href="{% url 'form_upload' %}" class="menu-button">📂 Upload CSV</a>
-    <a href="{% url 'rekap_admin' %}" class="menu-button">📋 Data Inputan Manual</a>
+    <a href="{% url 'rekap_admin' %}" class="menu-button">📋 Rekap Hasil Data Pasien</a>
     <a href="{% url 'daftar_pengguna' %}" class="menu-button">👥 Daftar Pengguna</a>
     {% endif %}
   </div>
