@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Rekap Data Manual</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: center;
+    }
+    th {
+      background-color: #10b981;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <h2>📋 Rekap Prediksi Manual Pengguna</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>Tanggal</th>
+        <th>Glukosa</th>
+        <th>Tekanan</th>
+        <th>Insulin</th>
+        <th>BMI</th>
+        <th>Usia</th>
+        <th>Persen Risiko</th>
+        <th>Hasil</th>
+        <th>Aksi</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in data %}
+      <tr>
+      <td>{{ item.user.username }}</td>
+      <td>{{ item.tanggal_input|date:"Y-m-d H:i" }}</td>
+      <td>{{ item.glukosa }}</td>
+      <td>{{ item.tekanan }}</td>
+      <td>{{ item.insulin }}</td>
+      <td>{{ item.bmi }}</td>
+      <td>{{ item.usia }}</td>
+      <td>{{ item.hasil_persen }}%</td>
+      <td>{{ item.hasil_tipe }}</td>
+      <td>
+          <a href="{% url 'hapus_prediksi_manual' item.id %}" 
+            onclick="return confirm('Apakah Anda yakin ingin menghapus data prediksi ini?')"
+            style="color: white; background-color: #ef4444; padding: 5px 10px; border-radius: 5px; text-decoration: none;">
+            🗑️ Hapus
+          </a>
+        </td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="9">Belum ada data</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+   <div style="text-align: center; margin-top: 30px;">
+    <a href="{% url 'home' %}" style="
+      padding: 10px 20px;
+      background-color: #10b981;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+    ">
+      ← Kembali ke Menu
+    </a>
+  </div>
+</body>
+</html>

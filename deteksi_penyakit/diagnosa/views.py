@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
+from django.contrib.auth.models import User
 import numpy as np
 import pandas as pd
 from sklearn.metrics import classification_report, accuracy_score
@@ -8,6 +9,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
 from .forms import CustomUserCreationForm
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import user_passes_test
+from .models import ManualPrediction
 
 # Latih model sekali saat server dijalankan
 url = "https://raw.githubusercontent.com/jbrownlee/Datasets/master/pima-indians-diabetes.data.csv"
@@ -105,6 +108,27 @@ def hasil_prediksi(request):
             'tipe': tipe,
             'saran': saran,
         }
+
+        # Simpan ke database
+        ManualPrediction.objects.create(
+            user=request.user,
+            jenis_kelamin=jenis_kelamin,
+            kehamilan=kehamilan,
+            glukosa=glukosa,
+            tekanan=tekanan,
+            kulit=kulit,
+            insulin=insulin,
+            berat=berat,
+            tinggi=tinggi_cm,
+            bmi=bmi,
+            riwayat=riwayat,
+            usia=usia,
+            hasil_persen=persen,
+            hasil_risiko=risiko,
+            hasil_tipe=tipe,
+            hasil_saran=saran
+        )
+
         return render(request, 'diagnosa/hasil_manual.html', context)
     else:
         return redirect('form_manual')
@@ -147,3 +171,40 @@ def form_upload(request):
             return render(request, 'diagnosa/form_upload.html', {'error': f'Terjadi kesalahan: {str(e)}'})
 
     return render(request, 'diagnosa/form_upload.html')
+
+# ===== REKAP ADMIN =====
+
+# rekap data inputan manual
+@user_passes_test(lambda u: u.is_superuser)
+def rekap_admin(request):
+    data = ManualPrediction.objects.all().order_by('-tanggal_input')
+    return render(request, 'diagnosa/rekap_admin.html', {'data': data})
+
+# rekap akun user
+@login_required(login_url='login')
+@user_passes_test(lambda u: u.is_superuser)
+def daftar_pengguna(request):
+    users = User.objects.all().order_by('-date_joined')
+    return render(request, 'diagnosa/daftar_pengguna.html', {'users': users})
+
+# untuk menghapus akun user
+@login_required(login_url='login')
+@user_passes_test(lambda u: u.is_superuser)
+def hapus_pengguna(request, user_id):
+    try:
+        user = User.objects.get(id=user_id)
+        user.delete()
+    except User.DoesNotExist:
+        pass
+    return redirect('daftar_pengguna')
+
+# untuk menghapus data rekapan manual
+@login_required(login_url='login')
+@user_passes_test(lambda u: u.is_superuser)
+def hapus_prediksi_manual(request, prediksi_id):
+    try:
+        prediksi = ManualPrediction.objects.get(id=prediksi_id)
+        prediksi.delete()
+    except ManualPrediction.DoesNotExist:
+        pass
+    return redirect('rekap_admin')

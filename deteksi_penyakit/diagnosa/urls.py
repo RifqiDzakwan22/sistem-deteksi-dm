@@ -11,4 +11,9 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(template_name='diagnosa/login.html'), name='login'),
     path('logout/', views.logout_user, name='logout'),
     path('register/', views.register_view, name='register'),
+    path('rekap-admin/', views.rekap_admin, name='rekap_admin'),
+    path('daftar-pengguna/', views.daftar_pengguna, name='daftar_pengguna'),
+    path('hapus-pengguna/<int:user_id>/', views.hapus_pengguna, name='hapus_pengguna'),
+    path('hapus-prediksi-manual/<int:prediksi_id>/', views.hapus_prediksi_manual, name='hapus_prediksi_manual'),
+
 ]
