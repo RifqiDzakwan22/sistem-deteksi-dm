@@ -88,6 +88,8 @@ def hasil_prediksi(request):
 
         if persen < 40:
             tipe = "Normal atau Pra-Diabetes"
+        elif jenis_kelamin.upper() == 'P' and kehamilan > 0 and glukosa > 140:
+            tipe = "Kemungkinan Diabetes Gestasional"
         elif usia <= 25 and insulin < 50 and bmi < 22:
             tipe = "Kemungkinan Diabetes Tipe 1"
         elif usia >= 30 and bmi > 25:
