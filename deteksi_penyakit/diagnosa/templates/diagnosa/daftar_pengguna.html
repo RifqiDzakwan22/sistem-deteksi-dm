@@ -1,23 +1,9 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
     <title>Daftar Pengguna</title>
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        th, td {
-            border: 1px solid #ccc;
-            padding: 8px;
-            text-align: center;
-        }
-        th {
-            background-color: #10b981;
-            color: white;
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'diagnosa/daftar_pengguna.css' %}">
 </head>
 <body>
     <h2>📋 Daftar Pengguna Terdaftar</h2>
@@ -27,7 +13,7 @@
                 <th>Username</th>
                 <th>Aktif</th>
                 <th>Waktu Registrasi</th>
-                <th>Aksi</th>  <!-- Tambahkan kolom Aksi -->
+                <th>Aksi</th> 
             </tr>
         </thead>
         <tbody>
@@ -44,7 +30,7 @@
                     🗑️ Hapus
                     </a>
                     {% else %}
-                    <span style="color: gray;">Tidak bisa hapus diri sendiri</span>
+                    <span style="color: gray;">Untuk admin tidak bisa hapus diri sendiri</span>
                     {% endif %}
                 </td>
             </tr>
