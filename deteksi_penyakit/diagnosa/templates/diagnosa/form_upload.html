@@ -13,7 +13,7 @@
   <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     <input type="file" name="csv_file" accept=".csv" required class="file-input"><br><br>
-    <button type="submit" class="upload-btn">📊 Prediksi CSV</button>
+    <button type="submit" class="upload-btn">📊 Evaluasi CSV</button>
     {% if error %}
     <p class="error">{{ error }}</p>
     {% endif %}
