@@ -32,7 +32,7 @@ class HomeView(LoginRequiredMixin, TemplateView):
     template_name = 'diagnosa/home.html'
     login_url = 'login'
 
-
+# ===== Tampilan login =====
 class LogoutUserView(View):
     def get(self, request):
         logout(request)
@@ -67,12 +67,12 @@ class UserLoginView(View):
             return redirect('home')
         return render(request, 'diagnosa/login.html', {'error': 'Username atau password salah'})
 
-
+# ===== Tampilan Form Manual =====
 class FormManualView(LoginRequiredMixin, TemplateView):
     template_name = 'diagnosa/form_manual.html'
     login_url = 'login'
 
-
+# ===== Tampilan Hasil Manual =====
 class HasilPrediksiView(LoginRequiredMixin, View):
     login_url = 'login'
 
@@ -143,7 +143,7 @@ class HasilPrediksiView(LoginRequiredMixin, View):
     def get(self, request):
         return redirect('form_manual')
 
-
+# ===== Tampilan Form Upload =====
 class UploadCSVView(LoginRequiredMixin, View):
     login_url = 'login'
 
@@ -159,7 +159,7 @@ class UploadCSVView(LoginRequiredMixin, View):
             df = pd.read_csv(uploaded_file)
 
             if 'Hasil' not in df.columns:
-                return render(request, 'diagnosa/form_upload.html', {'error': "'Hasil' tidak ditemukan dalam file"})
+                return render(request, 'diagnosa/form_upload.html', {'error': "'Data tidak cukup untuk evaluasi"})
             if df.shape[0] < 100:
                 return render(request, 'diagnosa/form_upload.html', {'error': 'Minimal 100 baris data diperlukan'})
 
@@ -182,7 +182,7 @@ class UploadCSVView(LoginRequiredMixin, View):
         except Exception as e:
             return render(request, 'diagnosa/form_upload.html', {'error': f'Terjadi kesalahan: {str(e)}'})
 
-
+# ===== Tampilan Rekap Data Pasien =====
 class RekapAdminView(UserPassesTestMixin, ListView):
     model = ManualPrediction
     template_name = 'diagnosa/rekap_admin.html'
@@ -194,7 +194,7 @@ class RekapAdminView(UserPassesTestMixin, ListView):
     def get_queryset(self):
         return ManualPrediction.objects.all().order_by('-tanggal_input')
 
-
+# ===== Tampilan Rekap Data Akun Pengguna =====
 class DaftarPenggunaView(UserPassesTestMixin, ListView):
     model = User
     template_name = 'diagnosa/daftar_pengguna.html'
@@ -206,7 +206,7 @@ class DaftarPenggunaView(UserPassesTestMixin, ListView):
     def get_queryset(self):
         return User.objects.all().order_by('-date_joined')
 
-
+# ===== Untuk Menghapus Akun =====
 class HapusPenggunaView(UserPassesTestMixin, View):
     def test_func(self):
         return self.request.user.is_superuser
@@ -219,7 +219,7 @@ class HapusPenggunaView(UserPassesTestMixin, View):
             pass
         return redirect('daftar_pengguna')
 
-
+# ===== Untuk Menghapus Data Pasien =====
 class HapusPrediksiManualView(UserPassesTestMixin, View):
     def test_func(self):
         return self.request.user.is_superuser
